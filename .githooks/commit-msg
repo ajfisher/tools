@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+commit_msg_file="$1"
+
+cd "$repo_root"
+
+if [ -x "$repo_root/node_modules/.bin/commitlint" ]; then
+  "$repo_root/node_modules/.bin/commitlint" --edit "$commit_msg_file"
+else
+  npx commitlint --edit "$commit_msg_file"
+fi
